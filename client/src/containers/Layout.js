@@ -10,9 +10,11 @@ export default class Layout extends Component {
         return (
 
             <div className="contianer-fluid">
-
+                <Load/>
                 <div className="row">
+                    <Link to="/" >User Manager</Link> >
                     <Link to="/add" >Add User</Link>
+
                 </div>
                 <div className="row">
                     <div className="col-md-2">

@@ -9,15 +9,6 @@ import Layout from './containers/Layout'
 
 import UserAdd from './components/user/UserAddComponent'
 
-// export default () => {
-
-//     <Router>
-//         <Route path="/" component={Root }>
-//             <IndexRoute component={Root} />
-//         </Route>
-//     </Router>
-// }
-
 
 export default class Routers extends Component {
 
