@@ -1,23 +1,8 @@
 import React, { Component}from 'react';
 import { IndexRoute, Route, Router } from 'react-router';
-
-// import UserList from './components/UserListComponent'
-
-import Root from './containers/Root'
-
-import Layout from './containers/Layout'
-
+import Layout from './components/Layout'
 import UserAdd from './components/user/UserAddComponent'
-
-// export default () => {
-
-//     <Router>
-//         <Route path="/" component={Root }>
-//             <IndexRoute component={Root} />
-//         </Route>
-//     </Router>
-// }
-
+import UserList from './components/user/UserListComponent'
 
 export default class Routers extends Component {
 
@@ -25,7 +10,7 @@ export default class Routers extends Component {
         return (
             <Router history={this.props.history}>
                 <Route path="/" component={Layout }>
-                    <IndexRoute component={Root} />
+                    <IndexRoute component={UserList} />
                     <Route path="add" component={UserAdd} />
                 </Route>
             </Router>

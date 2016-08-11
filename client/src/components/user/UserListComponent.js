@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import { getUserList } from '../../actions/userActions';
 import UserListItem from './UesrListItemComponent';
 import NoItems from '../NoItemsComponent'
+import {connect} from 'react-redux';
 
-export default class UserList extends Component {
+class UserList extends Component {
 
     componentDidMount() {
         this.props.dispatch(getUserList());
@@ -19,8 +20,8 @@ export default class UserList extends Component {
             content = <NoItems />
         }
         return (
-            <div className="table-responsive">
-                <table className="table  table-hover">
+            <div className="col-md-8">
+                <table className="table  table-hover table-condensed">
                     <tbody>
                         <tr>
                             <th>ID</th>
@@ -36,3 +37,10 @@ export default class UserList extends Component {
 
     }
 }
+
+function mapStateToProps(state) {
+    const {userReducer} = state;
+    return userReducer;
+}
+
+export default connect(mapStateToProps)(UserList);

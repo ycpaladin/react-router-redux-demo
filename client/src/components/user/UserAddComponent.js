@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 class UserAdd extends Component {
     render() {
         return (
-            <div>
+            <div className="col-md-8">
                 <form className="form-horizontal">
                     <div className="form-group">
                         <label htmlFor="inputEmail3" className="col-sm-2 control-label">User Name</label>
