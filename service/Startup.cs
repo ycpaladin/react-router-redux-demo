@@ -13,6 +13,11 @@ using WebApplication.Data;
 using WebApplication.Models;
 using WebApplication.Services;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Models;
+using Middleware;
+using Microsoft.Extensions.Options;
 
 namespace WebApplication
 {
@@ -50,10 +55,6 @@ namespace WebApplication
 
             services.AddMvc();
 
-
-           
-
-
             var policy = new CorsPolicy();
 
             policy.Headers.Add("*");
@@ -66,6 +67,9 @@ namespace WebApplication
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
         }
+
+
+        private static readonly string secretKey = "mysupersecret_secretkey!123";
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -89,6 +93,69 @@ namespace WebApplication
             app.UseIdentity();
 
             app.UseCors("corsPolicy");
+
+
+
+            #region JWT Token
+
+
+            // var secretKey = "mysupersecret_secretkey!123";
+            // var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+
+
+
+
+            // Add JWT generation endpoint:
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+            var options = new TokenProviderOptions
+            {
+                Audience = "ExampleAudience",
+                Issuer = "ExampleIssuer",
+                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256),
+            };
+
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                // The signing key must match!
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+
+                // Validate the JWT Issuer (iss) claim
+                ValidateIssuer = true,
+                ValidIssuer = "ExampleIssuer",
+
+                // Validate the JWT Audience (aud) claim
+                ValidateAudience = true,
+                ValidAudience = "ExampleAudience",
+
+                // Validate the token expiry
+                ValidateLifetime = true,
+
+                // If you want to allow a certain amount of clock drift, set that here:
+                ClockSkew = TimeSpan.Zero
+            };
+
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = tokenValidationParameters
+            });
+
+            app.UseMiddleware<TokenProviderMiddleware>(Options.Create(options));
+            #endregion
+
+
+            // app.UseCookieAuthentication(new CookieAuthenticationOptions
+            // {
+            //     AutomaticAuthenticate = true,
+            //     AutomaticChallenge = true,
+            //     AuthenticationScheme = "Cookie",
+            //     CookieName = "access_token",
+            //     TicketDataFormat = new CustomJwtDataFormat(SecurityAlgorithms.HmacSha256, tokenValidationParameters)
+            // });
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
 

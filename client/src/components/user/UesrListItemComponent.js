@@ -16,8 +16,8 @@ export default class UserListItem extends Component {
                     {item.age}
                 </td>
                 <td>
-                    <a className="btn btn-small btn-info">编辑</a>
-                    <input  type="button" className="btn btn-small btn-info" value="删除" onClick={e => this.deleteClick(e) }/>
+                    <a className="btn btn-sm btn-info">编辑</a>
+                    <input  type="button" className="btn btn-sm btn-info" value="删除" onClick={e => this.deleteClick(e) }/>
                 </td>
             </tr>
         )

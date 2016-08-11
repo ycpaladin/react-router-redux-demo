@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication.Controllers
 {
@@ -24,6 +25,7 @@ namespace WebApplication.Controllers
             new User{ id = 3, name = "ccw", age =1}
         };
 
+        [Authorize]
         public async Task<List<User>> GetUserList()
         {
 
@@ -34,6 +36,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<object> AddUser(User user)
         {
             return await Task.Run(() =>

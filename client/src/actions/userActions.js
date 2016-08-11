@@ -6,7 +6,13 @@ export function getUserList() {
 
     return dispatch => {
         dispatch(loading());
-        return fetch('http://localhost:5000/User/GetUserList')
+        return fetch('http://localhost:5000/User/GetUserList',
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJURVNUIiwianRpIjoiOWRmMjliZDMtNjA2ZS00M2ZkLWIxODQtOTc4N2M1NzZjYTNmIiwiaWF0IjoxNDcwOTA4MzgxLCJuYmYiOjE0NzA5MDgzODEsImV4cCI6MTQ3MDk5NDc4MSwiaXNzIjoiRXhhbXBsZUlzc3VlciIsImF1ZCI6IkV4YW1wbGVBdWRpZW5jZSJ9.VlJWfzqCXclrrFKlQC1101nyKlT8_TOXvOu4yNp-OrY"
+                }
+            })
             .then(response => response.json())
             .then(json => {
                 dispatch(loaded());
@@ -25,8 +31,9 @@ export function addUser(user) {
         return fetch('http://localhost:5000/User/AddUser', {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJURVNUIiwianRpIjoiOWRmMjliZDMtNjA2ZS00M2ZkLWIxODQtOTc4N2M1NzZjYTNmIiwiaWF0IjoxNDcwOTA4MzgxLCJuYmYiOjE0NzA5MDgzODEsImV4cCI6MTQ3MDk5NDc4MSwiaXNzIjoiRXhhbXBsZUlzc3VlciIsImF1ZCI6IkV4YW1wbGVBdWRpZW5jZSJ9.VlJWfzqCXclrrFKlQC1101nyKlT8_TOXvOu4yNp-OrY",
+                'Content-Type': "application/json",
+                Accept: "application/json"
             },
             body: JSON.stringify(user)
         }).then(response => response.json())

@@ -7,16 +7,18 @@ import {connect} from 'react-redux';
 class UserList extends Component {
 
     componentDidMount() {
-        this.props.dispatch(getUserList());
+        const {dispatch} = this.props;
+        dispatch(getUserList());
     }
 
     render() {
         var content = null;
-        if (this.props.list.length) {
-            content = this.props.list.map((item, index) => {
+        const {list, isFetching} = this.props;
+        if (list.length) {
+            content = list.map((item, index) => {
                 return (<UserListItem item={item} key={index} />)
             })
-        } else if (!this.props.isFetching) {
+        } else if (!isFetching) {
             content = <NoItems />
         }
         return (
@@ -25,7 +27,7 @@ class UserList extends Component {
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th> 姓名</th>
+                            <th>姓名</th>
                             <th>年龄</th>
                             <th>操作</th>
                         </tr>
@@ -34,7 +36,6 @@ class UserList extends Component {
                 </table>
             </div>
         )
-
     }
 }
 
