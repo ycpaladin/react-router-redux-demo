@@ -1,6 +1,6 @@
 import actionTypes from '../constants/actionTypes'
 import fetch from 'isomorphic-fetch';
-const { USER_LIST, USER_ADD, USER_UPDATE, USER_DELETE, LOADING,LOADED} = actionTypes;
+const { USER_LIST, USER_ADD, USER_UPDATE, USER_DELETE, LOADING, LOADED} = actionTypes;
 
 export function getUserList() {
 
@@ -24,17 +24,21 @@ export function addUser(user) {
         //data.append('json', JSON.stringify(user));
         return fetch('http://localhost:5000/User/AddUser', {
             method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
             body: JSON.stringify(user)
         }).then(response => response.json())
             .then(json => {
                 if (json.scuess) {
                     dispatch(loaded());
                     dispatch({
-                        type:USER_ADD,
-                        value:json
+                        type: USER_ADD,
+                        value: json
                     });
                 } else {
-                    
+
                 }
             });
     }
@@ -47,7 +51,7 @@ function loading() {
 
 }
 
-function loaded(){
+function loaded() {
     return {
         type: LOADED
     }

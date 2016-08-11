@@ -12,6 +12,7 @@ export default class Layout extends Component {
             <div className="contianer-fluid">
 
                 <div className="row">
+                    <Link to="/" >User Manager</Link> >
                     <Link to="/add" >Add User</Link>
                 </div>
                 <div className="row">
