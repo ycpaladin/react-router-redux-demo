@@ -13,19 +13,17 @@ namespace WebApplication.Controllers
         public string name { get; set; }
 
         public int age { get; set; }
-
     }
     public class UserController : Controller
     {
 
         static List<User> list = new List<User>{
-                    new User{ id = 1, name = "kevin", age = 29},
-                    new User{ id = 2, name = "lxy", age = 26},
-                    new User{ id = 3, name = "ccw", age = 1}
-                };
 
+            new User { id = 1, name = "kevin", age = 29},
+            new User{ id = 2, name = "lxy", age = 26},
+            new User{ id = 3, name = "ccw", age =1}
+        };
 
-        //[EnableCors(policyName: "corsPolicy")]
         public async Task<List<User>> GetUserList()
         {
 
