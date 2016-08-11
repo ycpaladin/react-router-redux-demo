@@ -1,0 +1,5 @@
+/client/node_modules/*
+/service/bin/*
+/service/obj/*
+/service/node_modules/*
+/service/bower_components/*
