@@ -2,6 +2,7 @@ import actionTypes from '../constants/actionTypes'
 import fetch from 'isomorphic-fetch';
 const { USER_LIST, USER_ADD, USER_UPDATE, USER_DELETE, LOADING, LOADED} = actionTypes;
 
+const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJURVNUIiwianRpIjoiNTk0Zjk1MDYtZWM3YS00YjYwLWFiOTUtZDI1Nzc4ZWRlNTA1IiwiaWF0IjoxNDcxMTg2OTU2LCJuYmYiOjE0NzExODY5NTYsImV4cCI6MTQ3MTI3MzM1NiwiaXNzIjoiRXhhbXBsZUlzc3VlciIsImF1ZCI6IkV4YW1wbGVBdWRpZW5jZSJ9.EU51CbbFvCTfGwWqKxh39Zy0nTyi02BYXnN9TKhhDAA"
 export function getUserList() {
 
     return dispatch => {
@@ -10,7 +11,7 @@ export function getUserList() {
             {
                 method: 'GET',
                 headers: {
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJURVNUIiwianRpIjoiOWRmMjliZDMtNjA2ZS00M2ZkLWIxODQtOTc4N2M1NzZjYTNmIiwiaWF0IjoxNDcwOTA4MzgxLCJuYmYiOjE0NzA5MDgzODEsImV4cCI6MTQ3MDk5NDc4MSwiaXNzIjoiRXhhbXBsZUlzc3VlciIsImF1ZCI6IkV4YW1wbGVBdWRpZW5jZSJ9.VlJWfzqCXclrrFKlQC1101nyKlT8_TOXvOu4yNp-OrY"
+                    Authorization: token
                 }
             })
             .then(response => response.json())
@@ -31,7 +32,7 @@ export function addUser(user) {
         return fetch('http://localhost:5000/User/AddUser', {
             method: 'POST',
             headers: {
-                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJURVNUIiwianRpIjoiOWRmMjliZDMtNjA2ZS00M2ZkLWIxODQtOTc4N2M1NzZjYTNmIiwiaWF0IjoxNDcwOTA4MzgxLCJuYmYiOjE0NzA5MDgzODEsImV4cCI6MTQ3MDk5NDc4MSwiaXNzIjoiRXhhbXBsZUlzc3VlciIsImF1ZCI6IkV4YW1wbGVBdWRpZW5jZSJ9.VlJWfzqCXclrrFKlQC1101nyKlT8_TOXvOu4yNp-OrY",
+                Authorization: token,
                 'Content-Type': "application/json",
                 Accept: "application/json"
             },
