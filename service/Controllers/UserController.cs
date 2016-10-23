@@ -37,11 +37,7 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [Authorize]
-<<<<<<< HEAD
         public async Task<object> AddUser([FromBody ]User user)
-=======
-        public async Task<object> AddUser([FromBody]User user)
->>>>>>> 10081e91158998e73d376389229de94a9a888045
         {
             return await Task.Run(() =>
             {
