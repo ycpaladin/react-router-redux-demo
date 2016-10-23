@@ -2,11 +2,12 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebPackPlugin = require('html-webpack-plugin');
-
+var baseUrl = path.join(__dirname, 'src');
 
 module.exports = {
     entry: {
-        app: path.join(__dirname, 'src'),
+        index: path.join(baseUrl, './index.js'),
+        second: path.join(baseUrl, './second.js'),
         vendors: ['react', 'redux', 'babel-polyfill']
     },
     output: {
@@ -45,12 +46,20 @@ module.exports = {
         // new webpack.DefinePlugin({
         //     __DEBUG__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
         // }),
-        new ExtractTextPlugin("[name].css"),
+        new ExtractTextPlugin("./assets/[name].css"),
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
         new HtmlWebPackPlugin({
             title: 'test app',
+            chunks: ['vendors', 'index'],
+            template: path.join(baseUrl, './index.html'),
             filename: 'index.html',
-            template:'index.html',
+            inject: 'body'
+        }),
+        new HtmlWebPackPlugin({
+            title: 'second',
+            chunks: ['vendors', 'second'],
+            template: path.join(baseUrl, './second.html'),
+            filename: 'second.html',
             inject: 'body'
         })
     ]
