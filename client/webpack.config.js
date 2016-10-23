@@ -7,7 +7,7 @@ var HtmlWebPackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         app: path.join(__dirname, 'src'),
-        vendors: ['react', 'redux', 'jquery']
+        vendors: ['react', 'redux', 'babel-polyfill']
     },
     output: {
         path: path.join(__dirname, 'bundle'),
