@@ -1,19 +1,24 @@
 
-import actionTypes  from '../constants/actionTypes'
+import actionTypes from '../constants/actionTypes'
 const {USER_ADD, LOADING} = actionTypes;
 
 const defState = {
-    sucess: false,
+    sucess: null,
     message: ''
 }
 
 function userAddReducer(state = defState, action) {
-    switch (action.type) {
+    let { type, value} = action;
+    switch (type) {
         case USER_ADD:
             return Object.assign({}, state, {
-                sucess: action.sucess,
-                message: action.message
+                sucess: value.sucess,
+                message: value.message
             })
+        case LOADING:
+            return Object.assign({}, state, {
+                message: value.message
+            });
         default:
             return state;
     }

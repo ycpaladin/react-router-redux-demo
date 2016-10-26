@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { getUserList } from '../../actions/userActions';
 import UserListItem from './UesrListItemComponent';
 import NoItems from '../NoItemsComponent'
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class UserList extends Component {
 
@@ -14,7 +14,7 @@ class UserList extends Component {
     render() {
         var content = null;
         const {list, isFetching} = this.props;
-        if (list.length) {
+        if (list && list.length) {
             content = list.map((item, index) => {
                 return (<UserListItem item={item} key={index} />)
             })

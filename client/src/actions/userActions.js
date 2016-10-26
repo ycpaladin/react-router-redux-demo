@@ -1,24 +1,33 @@
 import actionTypes from '../constants/actionTypes'
 import fetch from 'isomorphic-fetch';
-const { USER_LIST, USER_ADD, USER_UPDATE, USER_DELETE, LOADING, LOADED} = actionTypes;
+// const= actionTypes;
+let {
+    USER_LIST,
+    USER_ADD_SUCESS,
+    USER_ADD_FAIL,
+    USER_NOT_EXISTS,
+    USER_UPDATE_SUCESS,
+    USER_UPDATE_FAIL,
+    USER_LOADING,
+    USER_LOADED,
+    USER_DELETE_FAIL,
+    USER_DELETE_SUCESS
+} = actionTypes;
 
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJURVNUIiwianRpIjoiNTk0Zjk1MDYtZWM3YS00YjYwLWFiOTUtZDI1Nzc4ZWRlNTA1IiwiaWF0IjoxNDcxMTg2OTU2LCJuYmYiOjE0NzExODY5NTYsImV4cCI6MTQ3MTI3MzM1NiwiaXNzIjoiRXhhbXBsZUlzc3VlciIsImF1ZCI6IkV4YW1wbGVBdWRpZW5jZSJ9.EU51CbbFvCTfGwWqKxh39Zy0nTyi02BYXnN9TKhhDAA"
+// console.log(actionTypes);
+let list = [{
+    id: 1,
+    name: 'kevin',
+    age: 30
+}]
+
+
 export function getUserList() {
-
     return dispatch => {
         dispatch(loading());
-        return fetch('http://localhost:5000/User/GetUserList',
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: token
-                }
-            })
-            .then(response => response.json())
-            .then(json => {
-                dispatch(loaded());
-                dispatch({ type: USER_LIST, list: json });
-            });
+        setTimeout(() => {
+            dispatch({ type: USER_LIST, list });
+        }, 200);
     }
 }
 
@@ -26,41 +35,79 @@ export function getUserList() {
 export function addUser(user) {
     return dispatch => {
         dispatch(loading());
+        setTimeout(() => {
+            let idArray = list.map(t => t.id);
+            let maxId = Math.max.apply(Math, idArray);
+            user.id = maxId + 1;
+            list.push(user);
+            dispatch({
+                type: USER_ADD_SUCESS,
+                sucess: true,
+                message: '增加成功！'
+            })
 
-        //var data = new FormData();
-        //data.append('json', JSON.stringify(user));
-        return fetch('http://localhost:5000/User/AddUser', {
-            method: 'POST',
-            headers: {
-                Authorization: token,
-                'Content-Type': "application/json",
-                Accept: "application/json"
-            },
-            body: JSON.stringify(user)
-        }).then(response => response.json())
-            .then(json => {
-                if (json.scuess) {
-                    dispatch(loaded());
-                    dispatch({
-                        type: USER_ADD,
-                        value: json
-                    });
-                } else {
-
-                }
-            });
+        }, 200);
     }
 }
 
+export function getUserById(id) {
+    return dispatch => {
+        dispatch({ type: USER_LOADING, message: '正在加载' });
+        setTimeout(() => {
+            let user = _getUserById(id)
+            if (user) {
+                dispatch({
+                    type: USER_UPDATE_SUCESS,
+                    sucess: true,
+                    message: ''
+                });
+            } else {
+                dispatch({
+                    type: USER_NOT_EXISTS,
+                    sucess: false,
+                    message: '没有找到这个用户！'
+                })
+            }
+        }, 200);
+    }
+}
+
+function _getUserById(id) {
+    return list.find(t => t.id === id);
+}
+
+
+export function updateUser(user) {
+    return dispatch => {
+        dispatch({ type: USER_LOADING, message: '正在加载' });
+        setTimeout(() => {
+            let _u = _getUserById(user.id);
+            _u.name = user.name;
+            _u.age = user.age;
+
+            dispatch({
+                type: USER_UPDATE_SUCESS,
+                sucess: true,
+                message: '更新成功！'
+            });
+        }, 200);
+
+
+    }
+
+}
+
+
 function loading() {
     return {
-        type: LOADING
+        type: USER_LOADING,
+        message: '正在加载'
     }
 
 }
 
 function loaded() {
     return {
-        type: LOADED
+        type: USER_LOADED
     }
 }
