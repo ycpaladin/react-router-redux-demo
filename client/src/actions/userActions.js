@@ -11,7 +11,8 @@ let {
     USER_LOADING,
     USER_LOADED,
     USER_DELETE_FAIL,
-    USER_DELETE_SUCESS
+    USER_DELETE_SUCESS,
+    GET_USER_BY_ID
 } = actionTypes;
 
 // console.log(actionTypes);
@@ -26,7 +27,7 @@ export function getUserList() {
     return dispatch => {
         dispatch(loading());
         setTimeout(() => {
-            dispatch({ type: USER_LIST, list });
+            dispatch({ type: USER_LIST, result: list });
         }, 200);
     }
 }
@@ -57,9 +58,10 @@ export function getUserById(id) {
             let user = _getUserById(id)
             if (user) {
                 dispatch({
-                    type: USER_UPDATE_SUCESS,
+                    type: GET_USER_BY_ID,
                     sucess: true,
-                    message: ''
+                    message: '',
+                    result: user
                 });
             } else {
                 dispatch({
@@ -73,7 +75,7 @@ export function getUserById(id) {
 }
 
 function _getUserById(id) {
-    return list.find(t => t.id === id);
+    return list.find(t => t.id == id);
 }
 
 

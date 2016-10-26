@@ -7,25 +7,34 @@ const { USER_LIST, USER_LOADING, USER_ADD,
     USER_ADD_SUCESS,
     USER_ADD_FAIL,
     USER_DELETE_FAIL,
+    GET_USER_BY_ID,
     USER_DELETE_SUCESS} = actionTypes;
 var defState = {
-    list: null,
+    result: null,
     isFetching: false,
     sucess: null,
     message: ''
+
 }
 
 function userReducer(state = defState, action) {
-    let { type, list, sucess, message} = action;
+    let { type, result, sucess, message} = action;
     switch (action.type) {
         case USER_LIST:
             return Object.assign({}, state, {
-                list
+                message, isFetching: false,
+                result: result
             });
         case USER_LOADING:
             return Object.assign({}, state, {
-                message, isFetching: true
+                sucess: null,
+                message, isFetching: true, result: null
             })
+        case GET_USER_BY_ID:
+            return Object.assign({}, state, {
+                message, isFetching: false,
+                result: result
+            });
         case USER_ADD_SUCESS:
         case USER_ADD_FAIL:
         case USER_UPDATE_SUCESS:
@@ -33,7 +42,7 @@ function userReducer(state = defState, action) {
         case USER_DELETE_SUCESS:
         case USER_DELETE_FAIL:
             return Object.assign({}, state, {
-                sucess, message, isFetching: false
+                sucess, message, isFetching: false, result: null
             })
         default:
             return state;

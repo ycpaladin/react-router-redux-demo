@@ -11,7 +11,8 @@ export default keyMirror({
     USER_UPDATE_FAIL: null,
     USER_DELETE_FAIL: null,
     USER_DELETE_SUCESS: null,
-    USER_LOADED: null
+    USER_LOADED: null,
+    GET_USER_BY_ID: null
 });
 
 

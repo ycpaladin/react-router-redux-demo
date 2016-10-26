@@ -13,9 +13,9 @@ class UserList extends Component {
 
     render() {
         var content = null;
-        const {list, isFetching} = this.props;
-        if (list && list.length) {
-            content = list.map((item, index) => {
+        const {result, isFetching} = this.props;
+        if (result && result.length) {
+            content = result.map((item, index) => {
                 return (<UserListItem item={item} key={index} />)
             })
         } else if (!isFetching) {

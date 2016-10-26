@@ -1,13 +1,19 @@
 
 import React, { Component } from 'react'
-import { addUser } from '../../actions/userActions';
+import { getUserById, updateUser } from '../../actions/userActions';
 import { connect } from 'react-redux';
 // import UserList from '../NoItemsComponent';
 import {getHistory} from '../../configureStore';
 import {UserFormComponent} from './UserFormComponent';
 
-class UserAddComponent extends Component {
+class UserEditComponent extends Component {
 
+    componentDidMount() {
+        let { dispatch, routeParams: p} = this.props;
+        // let id = this.
+
+        dispatch(getUserById(p.id));
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.sucess != null) {
@@ -21,23 +27,19 @@ class UserAddComponent extends Component {
     }
 
     render() {
-        return (<UserFormComponent handSubmit={ user => this.handSubmit(user) } />)
+        return (<UserFormComponent user={this.props.result} handSubmit={ user => this.handSubmit(user) } />)
     }
-
 
     handSubmit(user) {
-        console.log(this.a);
-        const {dispatch} = this.props;
-        dispatch(addUser(user));
+        let {dispatch} = this.props;
+        dispatch(updateUser(user));
     }
+
 }
-
-
-// export default UserAdd;
 
 function mapStateToProps(state) {
     const {userReducer} = state;
     return userReducer;
 }
 
-export default connect(mapStateToProps)(UserAddComponent);
+export default connect(mapStateToProps)(UserEditComponent);
