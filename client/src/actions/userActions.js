@@ -1,21 +1,15 @@
-import actionTypes from '../constants/actionTypes'
+import {actionTypes} from '../constants/actionTypes'
 import fetch from 'isomorphic-fetch';
-// const= actionTypes;
+
 let {
     USER_LIST,
-    USER_ADD_SUCESS,
-    USER_ADD_FAIL,
+    USER_ADD,
+    USER_EDIT,
     USER_NOT_EXISTS,
-    USER_UPDATE_SUCESS,
-    USER_UPDATE_FAIL,
     USER_LOADING,
-    USER_LOADED,
-    USER_DELETE_FAIL,
-    USER_DELETE_SUCESS,
     GET_USER_BY_ID
 } = actionTypes;
 
-// console.log(actionTypes);
 let list = [{
     id: 1,
     name: 'kevin',
@@ -28,7 +22,7 @@ export function getUserList() {
         dispatch(loading());
         setTimeout(() => {
             dispatch({ type: USER_LIST, result: list });
-        }, 200);
+        }, 500);
     }
 }
 
@@ -42,7 +36,7 @@ export function addUser(user) {
             user.id = maxId + 1;
             list.push(user);
             dispatch({
-                type: USER_ADD_SUCESS,
+                type: USER_ADD,
                 sucess: true,
                 message: '增加成功！'
             })
@@ -59,18 +53,18 @@ export function getUserById(id) {
             if (user) {
                 dispatch({
                     type: GET_USER_BY_ID,
-                    sucess: true,
+                    sucess: null,
                     message: '',
                     result: user
                 });
             } else {
                 dispatch({
-                    type: USER_NOT_EXISTS,
+                    type: GET_USER_BY_ID,
                     sucess: false,
                     message: '没有找到这个用户！'
                 })
             }
-        }, 200);
+        }, 500);
     }
 }
 
@@ -88,7 +82,7 @@ export function updateUser(user) {
             _u.age = user.age;
 
             dispatch({
-                type: USER_UPDATE_SUCESS,
+                type: USER_EDIT,
                 sucess: true,
                 message: '更新成功！'
             });

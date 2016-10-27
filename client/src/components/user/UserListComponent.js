@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { getUserList } from '../../actions/userActions';
 import UserListItem from './UesrListItemComponent';
-import NoItems from '../NoItemsComponent'
+import NoItems from '../NoItemsComponent';
+import LoadComponent from '../LoadComponent';
 import { connect } from 'react-redux';
 
 class UserList extends Component {
@@ -23,6 +24,7 @@ class UserList extends Component {
         }
         return (
             <div className="col-md-8">
+                <LoadComponent isFetching={this.props.isFetching} />
                 <table className="table  table-hover table-condensed">
                     <tbody>
                         <tr>

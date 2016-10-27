@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import { addUser } from '../../actions/userActions';
 import { connect } from 'react-redux';
 // import UserList from '../NoItemsComponent';
-import {getHistory} from '../../configureStore';
-import {UserFormComponent} from './UserFormComponent';
-
+import { getHistory } from '../../configureStore';
+import { UserFormComponent } from './UserFormComponent';
+import LoadComponent from '../LoadComponent';
 class UserAddComponent extends Component {
 
 
@@ -15,13 +15,16 @@ class UserAddComponent extends Component {
 
             if (nextProps.sucess == true) {
                 let history = getHistory();
-                history.pushState(null, '/');
+                history.push('/');
             }
         }
     }
 
     render() {
-        return (<UserFormComponent handSubmit={ user => this.handSubmit(user) } />)
+        return (<div>
+            <LoadComponent isFetching={this.props.isFetching} />
+            <UserFormComponent handSubmit={user => this.handSubmit(user)} />
+        </div>)
     }
 
 
@@ -36,8 +39,8 @@ class UserAddComponent extends Component {
 // export default UserAdd;
 
 function mapStateToProps(state) {
-    const {userReducer} = state;
-    return userReducer;
+    const {userAddReducer} = state;
+    return userAddReducer;
 }
 
 export default connect(mapStateToProps)(UserAddComponent);

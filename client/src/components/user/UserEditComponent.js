@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 // import UserList from '../NoItemsComponent';
 import {getHistory} from '../../configureStore';
 import {UserFormComponent} from './UserFormComponent';
-
+import LoadComponent from '../LoadComponent';
 class UserEditComponent extends Component {
 
 
@@ -22,13 +22,18 @@ class UserEditComponent extends Component {
 
             if (nextProps.sucess == true) {
                 let history = getHistory();
-                history.pushState(null, '/');
+                history.push('/');
             }
         }
     }
 
     render() {
-        return (<UserFormComponent user={this.props.result} handSubmit={ user => this.handSubmit(user) } />)
+        return (
+            <div>
+                <LoadComponent isFetching={this.props.isFetching} />
+                 <UserFormComponent user={this.props.result} handSubmit={ user => this.handSubmit(user) } />
+            </div>
+           )
     }
 
     handSubmit(user) {
@@ -39,8 +44,8 @@ class UserEditComponent extends Component {
 }
 
 function mapStateToProps(state) {
-    const {userReducer} = state;
-    return userReducer;
+    const {userEditReducer} = state;
+    return userEditReducer;
 }
 
 export default connect(mapStateToProps)(UserEditComponent);

@@ -1,14 +1,16 @@
 
 
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class Load extends Component {
+export default class LoadComponent extends Component {
     render() {
         const {isFetching } = this.props;
-        if (isFetching) {
+        if (isFetching === true) {
             return (
-                <div>正在加载..</div>
+                <div className="loading">
+                    <span>正在加载..</span>
+                </div>
             );
         } else {
             return null;
@@ -17,10 +19,12 @@ class Load extends Component {
 }
 
 
-function mapStateToProps(state) {
-    const {loadReducer} = state;
-    return loadReducer;
-}
 
 
-export default connect(mapStateToProps)(Load);
+// function mapStateToProps(state) {
+//     const {loadReducer} = state;
+//     return loadReducer;
+// }
+
+
+// export default connect(mapStateToProps)(Load);
