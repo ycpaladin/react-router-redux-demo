@@ -1,6 +1,6 @@
 
-import actionTypes  from '../constants/actionTypes'
-const { LOADING,LOADED} = actionTypes;
+import { actionTypes } from '../constants/actionTypes'
+const { LOADING, LOADED} = actionTypes;
 var defState = {
     isFetching: false
 }
