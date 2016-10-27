@@ -1,15 +1,13 @@
 import { combineReducers } from 'redux';
-import { userReducer, userAddReducer, userEditReducer } from './userReducer';
+import  userReducer  from './userReducer';
 import { routerReducer } from 'react-router-redux';
-// import userAddReducer from './userAddReducer';
-// import  from './userEditReducer';
-import loadReducer from './loadReducer';
+import userAddReducer from './userAddReducer';
+import userEditReducer from './userEditReducer';
 
 const rootReducer = combineReducers({
     userReducer,
     userAddReducer,
     userEditReducer,
-    loadReducer,
     routing: routerReducer
 });
 

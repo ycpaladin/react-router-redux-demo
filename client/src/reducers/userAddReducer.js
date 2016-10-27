@@ -1,28 +1,29 @@
 
-import actionTypes from '../constants/actionTypes'
-const {USER_ADD, LOADING} = actionTypes;
+import {actionTypes} from '../constants/actionTypes'
+const {USER_ADD, USER_ADD_FETCHING} = actionTypes;
 
-const defState = {
+let defaultAddState = {
+    isFetching: false,
     sucess: null,
     message: ''
 }
-
-function userAddReducer(state = defState, action) {
-    let { type, value} = action;
-    switch (type) {
-        case USER_ADD:
+export default function userAddReducer(state = defaultAddState, action) {
+    switch (action.type) {
+        case USER_ADD_FETCHING:
             return Object.assign({}, state, {
-                sucess: value.sucess,
-                message: value.message
-            })
-        case LOADING:
-            return Object.assign({}, state, {
-                message: value.message
+                isFetching: true,
+                sucess: null,
+                message: ''
             });
+        case USER_ADD:
+            let {sucess, message} = action;
+            return Object.assign({}, state, {
+                isFetching: false,
+                sucess,
+                message
+            });
+
         default:
             return state;
     }
-
 }
-
-export default userAddReducer;

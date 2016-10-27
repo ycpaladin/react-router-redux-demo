@@ -14,10 +14,10 @@ class UserList extends Component {
 
     render() {
         var content = null;
-        const {result, isFetching} = this.props;
+        const {result, isFetching, dispatch} = this.props;
         if (result && result.length) {
             content = result.map((item, index) => {
-                return (<UserListItem item={item} key={index} />)
+                return (<UserListItem item={item} key={index}  dispatch={dispatch}/>)
             })
         } else if (!isFetching) {
             content = <NoItems />

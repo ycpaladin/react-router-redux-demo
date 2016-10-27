@@ -2,12 +2,11 @@ import {actionTypes} from '../constants/actionTypes'
 import fetch from 'isomorphic-fetch';
 
 let {
-    USER_LIST,
-    USER_ADD,
-    USER_EDIT,
-    USER_NOT_EXISTS,
-    USER_LOADING,
-    GET_USER_BY_ID
+    USER_LIST, USER_LIST_FETCHING,
+    USER_ADD, USER_ADD_FETCHING,
+    USER_EDIT, USER_EDIT_FETCHING,
+    USER_GET, USER_GET_FETCHING,
+    USER_DELETE_FETCHING, USER_DELETE
 } = actionTypes;
 
 let list = [{
@@ -19,7 +18,7 @@ let list = [{
 
 export function getUserList() {
     return dispatch => {
-        dispatch(loading());
+        dispatch({ type: USER_LIST_FETCHING });
         setTimeout(() => {
             dispatch({ type: USER_LIST, result: list });
         }, 500);
@@ -29,10 +28,11 @@ export function getUserList() {
 
 export function addUser(user) {
     return dispatch => {
-        dispatch(loading());
+        dispatch({ type: USER_ADD_FETCHING });
         setTimeout(() => {
             let idArray = list.map(t => t.id);
-            let maxId = Math.max.apply(Math, idArray);
+            let maxId = idArray.length > 0 ? Math.max.apply(Math, idArray) : 0;
+
             user.id = maxId + 1;
             list.push(user);
             dispatch({
@@ -47,19 +47,19 @@ export function addUser(user) {
 
 export function getUserById(id) {
     return dispatch => {
-        dispatch({ type: USER_LOADING, message: '正在加载' });
+        dispatch({ type: USER_GET_FETCHING });
         setTimeout(() => {
             let user = _getUserById(id)
             if (user) {
                 dispatch({
-                    type: GET_USER_BY_ID,
+                    type: USER_GET,
                     sucess: null,
                     message: '',
                     result: user
                 });
             } else {
                 dispatch({
-                    type: GET_USER_BY_ID,
+                    type: USER_GET,
                     sucess: false,
                     message: '没有找到这个用户！'
                 })
@@ -75,7 +75,7 @@ function _getUserById(id) {
 
 export function updateUser(user) {
     return dispatch => {
-        dispatch({ type: USER_LOADING, message: '正在加载' });
+        dispatch({ type: USER_EDIT_FETCHING, message: '正在加载' });
         setTimeout(() => {
             let _u = _getUserById(user.id);
             _u.name = user.name;
@@ -87,23 +87,23 @@ export function updateUser(user) {
                 message: '更新成功！'
             });
         }, 200);
-
-
-    }
-
-}
-
-
-function loading() {
-    return {
-        type: USER_LOADING,
-        message: '正在加载'
-    }
-
-}
-
-function loaded() {
-    return {
-        type: USER_LOADED
     }
 }
+
+export function deleteUser(id) {
+    return dispatch => {
+        dispatch({ type: USER_DELETE_FETCHING })
+
+        setTimeout(() => {
+            let index = list.findIndex(t => t.id == id);
+            list.splice(index, 1);
+            dispatch({
+                type: USER_DELETE,
+                sucess: true,
+                message: '删除成功'
+            })
+        }, 200);
+    }
+}
+
+

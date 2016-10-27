@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router';
+import { deleteUser} from '../../actions/userActions'
 export default class UserListItem extends Component {
 
     render() {
@@ -24,6 +25,9 @@ export default class UserListItem extends Component {
     }
 
     deleteClick(e) {
-        alert(this.props.item.id)
+        // alert(this.props.item.id)
+        let { dispatch } = this.props;
+        dispatch(deleteUser(this.props.item.id));
+        // let 
     }
 }
