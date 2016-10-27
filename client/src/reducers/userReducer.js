@@ -1,5 +1,5 @@
 
-import actionTypes from '../constants/actionTypes'
+import {actionTypes} from '../constants/actionTypes'
 const { USER_LIST, USER_LOADING, USER_ADD, USER_EDIT,
     USER_NOT_EXISTS,
     USER_UPDATE_SUCESS,
