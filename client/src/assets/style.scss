@@ -27,13 +27,38 @@ html,body{width:100%; height: 100%; margin: 0px; padding: 0px;}
     }
     .message{
         position: fixed;
+        left: 50%;
         height: 30px;
         text-align: center;
-        width: 100%;
+        width: 200px;
         line-height: 35px;
-        display: none;
+        &.show{
+            animation: messageShow 0.5s 
+        }
+        &.hide{
+             animation: messageHide 0.5s ;
+        }
     }
-    .message .show{
-        display: block;
+}
+
+@keyframes messageShow{
+    from{
+        transform: translateY(-35px);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes messageHide{
+    from{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+    to{
+        transform: translateY(-35px);
+        opacity: 0;
     }
 }

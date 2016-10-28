@@ -1,40 +1,31 @@
-
+import onfire from 'onfire.js'
 
 import React, { Component } from 'react';
 
 export default class MessageBoxComponent extends Component {
 
+    componentDidMount() {
+        onfire.on('setMessage', t => {
+            this.setState({
+                message: t
+            });
+
+            this.timeOut = setTimeout(() => {
+                this.setState({
+                    message: undefined
+                });
+            }, 5000);//5秒之后自动消失.
+        })
+    }
+
     constructor(props) {
         super(props);
         this.state = {
-            message: ''
+            message: undefined
         }
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (nextProps.message && nextProps.message != this.state.message)
-    //         return true;
-    //     else
-    //         return false;
-    // }
-
-
-
-    componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps', nextProps.message, this.props.message)
-        this.setState({
-            message: nextProps.message
-        });
-
-        setTimeout(() => {
-
-        }, 1000);
-    }
-
     render() {
-
-
-
-        return (<div className={`message ${this.state.message ? 'show' : ''}`}>{this.state.message}</div>)
+        return (<div className={`message ${this.state.message ? 'show' : 'hide'}`}>{this.state.message}</div>)
     }
 }

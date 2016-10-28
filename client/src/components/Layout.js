@@ -12,6 +12,12 @@ export default class Layout extends Component {
         }
         // this.props.setMessage = (text) => {
         //     alert(text);
+        // <MessageBoxComponent message={this.state.message} />
+        // }
+        // this.setMessage = (text) => {
+        //     // this.setState({
+        //     //     message: text
+        //     // })
         // }
     }
 
@@ -19,7 +25,7 @@ export default class Layout extends Component {
         return (
             <div className="row-fluid">
                 <div className="row-fluid">
-                    <MessageBoxComponent message={this.state.message} />
+                    <MessageBoxComponent />
                     <ul className="breadcrumb">
                         <li><Link to="/">User Manager</Link><span className="divider"></span></li>
                         <li><Link to="/add">Add User</Link></li>
@@ -27,7 +33,7 @@ export default class Layout extends Component {
                 </div>
                 <div className="row-fluid">
                     <div className="col-md-2"></div>
-                    {this.props.children && React.cloneElement(this.props.children, { setMessage: t => this.setMessage(t) })}
+                    {this.props.children && React.cloneElement(this.props.children, { setMessage: t => this.setMessage(t) }) }
                     <div className="col-md-2"></div>
                 </div>
                 {Load}
@@ -36,9 +42,5 @@ export default class Layout extends Component {
     }
 
 
-    setMessage(text) {
-        this.setState({
-            message: text
-        })
-    }
+
 }

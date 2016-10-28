@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { getUserById, updateUser } from '../../actions/userActions';
 import { connect } from 'react-redux';
-// import UserList from '../NoItemsComponent';
+import onfire from 'onfire.js';
 import {getHistory} from '../../configureStore';
 import {UserFormComponent} from './UserFormComponent';
 import LoadComponent from '../LoadComponent';
@@ -19,7 +19,7 @@ class UserEditComponent extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.sucess != null) {
             // alert(nextProps.message);
-            this.props.setMessage(nextProps.message);
+            onfire.fire('setMessage', nextProps.message);
             if (nextProps.sucess == true) {
                 let history = getHistory();
                 history.push('/');

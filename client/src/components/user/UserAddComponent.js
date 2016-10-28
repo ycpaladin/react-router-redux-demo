@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { addUser } from '../../actions/userActions';
 import { connect } from 'react-redux';
-// import UserList from '../NoItemsComponent';
+import onfire from 'onfire.js';
 import { getHistory } from '../../configureStore';
 import { UserFormComponent } from './UserFormComponent';
 import LoadComponent from '../LoadComponent';
@@ -13,8 +13,8 @@ class UserAddComponent extends Component {
         if (nextProps.sucess != null) {
             // alert(nextProps.message);
 
-            this.props.setMessage(nextProps.message);
-
+            // this.props.setMessage(nextProps.message);
+            onfire.fire('setMessage', nextProps.message);
             if (nextProps.sucess == true) {
                 let history = getHistory();
                 history.push('/');
@@ -25,7 +25,7 @@ class UserAddComponent extends Component {
     render() {
         return (<div>
             <LoadComponent isFetching={this.props.isFetching} />
-            <UserFormComponent handSubmit={user => this.handSubmit(user)} />
+            <UserFormComponent handSubmit={user => this.handSubmit(user) } />
         </div>)
     }
 
