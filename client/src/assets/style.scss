@@ -25,4 +25,15 @@ html,body{width:100%; height: 100%; margin: 0px; padding: 0px;}
     .loaded{
         display: none;
     }
+    .message{
+        position: fixed;
+        height: 30px;
+        text-align: center;
+        width: 100%;
+        line-height: 35px;
+        display: none;
+    }
+    .message .show{
+        display: block;
+    }
 }

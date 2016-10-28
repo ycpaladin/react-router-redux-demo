@@ -18,8 +18,8 @@ class UserEditComponent extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.sucess != null) {
-            alert(nextProps.message);
-
+            // alert(nextProps.message);
+            this.props.setMessage(nextProps.message);
             if (nextProps.sucess == true) {
                 let history = getHistory();
                 history.push('/');

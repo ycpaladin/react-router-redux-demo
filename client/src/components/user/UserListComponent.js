@@ -17,7 +17,7 @@ class UserList extends Component {
         const {result, isFetching, dispatch} = this.props;
         if (result && result.length) {
             content = result.map((item, index) => {
-                return (<UserListItem item={item} key={index}  dispatch={dispatch}/>)
+                return (<UserListItem item={item} key={index} dispatch={dispatch} />)
             })
         } else if (!isFetching) {
             content = <NoItems />
@@ -41,9 +41,9 @@ class UserList extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    const {userReducer} = state;
-    return userReducer;
-}
+// function mapStateToProps(state) {
+//     const {userReducer} = state;
+//     return userReducer;
+// }
 
-export default connect(mapStateToProps)(UserList);
+export default connect(rootReducer => rootReducer.userReducer)(UserList);
