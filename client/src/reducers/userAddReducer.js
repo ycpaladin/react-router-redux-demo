@@ -9,12 +9,7 @@ let defaultAddState = {
 }
 export default function userAddReducer(state = defaultAddState, action) {
     switch (action.type) {
-        case USER_ADD_FETCHING:
-            return Object.assign({}, state, {
-                isFetching: true,
-                sucess: null,
-                message: ''
-            });
+           
         case USER_ADD:
             let {sucess, message} = action;
             return Object.assign({}, state, {
@@ -22,8 +17,12 @@ export default function userAddReducer(state = defaultAddState, action) {
                 sucess,
                 message
             });
-
+        case USER_ADD_FETCHING:
         default:
-            return state;
+            return Object.assign({}, state, {
+                isFetching: false,
+                sucess: null,
+                message: ''
+            });
     }
 }

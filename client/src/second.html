@@ -10,11 +10,38 @@
 </head>
 
 <body>
-  <div id="container">
-    <div class="item">1</div>
-    <div class="item">2</div>
-    <div class="item">3</div>
-    <div class="item">4</div>
+  <div id="container" flex="dir:top main:justify">
+    <div flex="dir:left; " flex-box="0">
+      <span id="backBtn"><a href="javascript:;"><返回</a></span>
+      <header flex-box="1">标题</header>
+      <span id="toolBtn"><a href="javascript:;">...</a></span>
+    </div>
+    <div flex-box="1">
+      <ul flex="dir:top main:justify">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+        <li>13</li>
+        <li>14</li>
+      </ul>
+    </div>
+    <div  flex-box="0">
+      <ul flex="dir:left; box:mean">
+        <li><a href="javascript:;">文章</a></li>
+        <li><a href="javascript:;">文章</a></li>
+        <li><a href="javascript:;">文章</a></li>
+        <li><a href="javascript:;">文章</a></li>
+      </ul>
+    </div>
   </div>
 </body>
 

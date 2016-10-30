@@ -11,7 +11,7 @@ import Routers from './routes'
 const loggerMiddleware = createLogger();
 
 const buildStore = applyMiddleware(
-    // loggerMiddleware,
+    loggerMiddleware,
     thunkMiddleware
 )(createStore);
 
