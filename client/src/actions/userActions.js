@@ -1,4 +1,4 @@
-import {actionTypes} from '../constants/actionTypes'
+import { actionTypes } from '../constants/actionTypes'
 import fetch from 'isomorphic-fetch';
 
 let {
@@ -106,4 +106,20 @@ export function deleteUser(id) {
     }
 }
 
+
+export function Test() {
+
+    return dispatch => {
+
+        fetch('http://cnodejs.org/api/v1/topics').then(response => {
+            return response.json();
+        }).then(data => {
+            dispatch({
+                type: USER_LIST,
+                data: data
+            })
+        });
+    }
+
+}
 
